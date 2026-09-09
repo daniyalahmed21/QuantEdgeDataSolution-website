@@ -68,7 +68,6 @@ export default function TransitionProvider({ children }) {
     const tl = gsap.timeline({ onComplete })
 
     tl.set(gridRef.current, { pointerEvents: 'all' })
-    tl.set(textRef.current, { autoAlpha: 1 })
     tl.set(blocks, { transformOrigin: 'left center', scaleX: 0 })
     if (words?.length) tl.set(words, { y: '100%' })
 
@@ -79,17 +78,17 @@ export default function TransitionProvider({ children }) {
       stagger: 0.05,
     })
 
+    // Reveal the brand text only once the blocks have fully covered the screen,
+    // so the text never appears over the page before the wipe completes.
+    tl.set(textRef.current, { autoAlpha: 1 })
+
     if (words?.length) {
-      tl.to(
-        words,
-        {
-          y: '0%',
-          duration: 0.5,
-          ease: 'power4.out',
-          stagger: 0.06,
-        },
-        '-=0.35',
-      )
+      tl.to(words, {
+        y: '0%',
+        duration: 0.5,
+        ease: 'power4.out',
+        stagger: 0.06,
+      })
     }
 
     return tl
