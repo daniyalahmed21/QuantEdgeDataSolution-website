@@ -21,6 +21,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# local data (sqlite db + uploaded resumes)
+/data
+
 # env files
 .env
 .env*.local

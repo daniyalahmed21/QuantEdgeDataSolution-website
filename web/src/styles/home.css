@@ -462,23 +462,31 @@
   }
 }
 
+/* Bento grid: card 01 is a large feature (4 cols x 2 rows), 02/03 stack
+   beside it, 04/05/06 form the bottom row of three. */
 .why-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 18px;
 }
+.why-grid > .reveal { display: flex; }
+.why-cell { grid-column: span 2; }
+.why-cell--lg { grid-column: span 4; grid-row: span 2; }
+
 .why-card {
+  width: 100%;
+  height: 100%;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto auto;
+  align-content: start;
   column-gap: 18px;
   background: linear-gradient(180deg, #14171d, #0e1116);
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 28px;
-  transition: transform 0.25s ease;
 }
-.why-card:hover { transform: translateY(-4px); }
 .why-index {
   grid-row: 1 / span 2;
   font-family: var(--display);
@@ -495,6 +503,48 @@
   margin-bottom: 8px;
 }
 .why-card p { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
+/* Featured cell — stacked layout with oversized number and bottom-anchored copy. */
+.why-cell--lg .why-card {
+  display: flex;
+  flex-direction: column;
+  padding: 36px;
+  background: linear-gradient(158deg, #191d26 0%, #0e1218 62%);
+  border-top: 1px solid rgba(var(--accent-rgb), 0.35);
+}
+.why-cell--lg .why-index {
+  padding: 0;
+  margin-bottom: auto;
+  font-size: 46px;
+}
+.why-cell--lg .why-card h3 {
+  margin-top: 26px;
+  font-size: clamp(26px, 2.6vw, 34px);
+  letter-spacing: -0.02em;
+}
+.why-cell--lg .why-card p {
+  font-size: 16px;
+  line-height: 1.55;
+  max-width: 42ch;
+}
+
+@media (max-width: 1023px) {
+  .why-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+  }
+  .why-cell,
+  .why-cell--lg {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .why-cell--lg { grid-column: 1 / -1; }
+  .why-cell--lg .why-index { margin-bottom: 16px; }
+}
+@media (max-width: 620px) {
+  .why-grid { grid-template-columns: 1fr; }
+  .why-cell--lg { grid-column: auto; }
+}
 
 .faq-section {
   padding: 90px 0 100px;
@@ -698,13 +748,14 @@
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  background: #2a2e35;
-  border: none;
+  gap: 16px;
+  background:
+    linear-gradient(180deg, #1b1f27 0%, #141820 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 28px;
-  padding: 28px 26px 26px;
+  padding: 32px 30px 28px;
   color: var(--text);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.75);
 }
 .contact-form-title {
   font-family: var(--display);
@@ -718,36 +769,35 @@
 .contact-form label {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #aeb6c2;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 550;
+  letter-spacing: 0.01em;
+  color: var(--muted);
 }
 .contact-form .full { width: 100%; }
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  background: #1e2229;
-  border: 1px solid #3a404c;
-  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.32);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   color: var(--text);
   font-family: var(--sans);
   font-size: 15px;
   padding: 14px 16px;
   outline: none;
   resize: vertical;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  transition: border-color 0.18s ease;
 }
 .contact-form textarea { min-height: 120px; }
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: #6a7280;
+  color: var(--dim);
 }
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: #5a6270;
-  background: #242830;
-  box-shadow: none;
+  border-color: rgba(var(--accent-rgb), 0.6);
 }
 .contact-check {
   flex-direction: row !important;

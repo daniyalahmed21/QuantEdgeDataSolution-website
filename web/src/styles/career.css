@@ -10,8 +10,11 @@
   padding-right: var(--site-pad-right);
   box-sizing: border-box;
 }
+.career-eyebrow {
+  margin: 0 0 16px;
+}
 .career-header h1 {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   font-family: var(--display);
   font-size: clamp(36px, 5.5vw, 64px);
   font-weight: 600;
@@ -24,11 +27,13 @@
 }
 .career-lead {
   margin: 0;
-  max-width: 46ch;
+  max-width: 52ch;
   font-size: clamp(15px, 1.5vw, 18px);
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--muted);
 }
+
+/* ---------- Layout ---------- */
 .career-layout {
   width: min(var(--site-max), calc(100% - 48px));
   margin: 0 auto;
@@ -36,42 +41,45 @@
   padding-right: var(--site-pad-right);
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.35fr);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.25fr);
   gap: 0;
   align-items: stretch;
   border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   overflow: hidden;
-  background: #000;
+  background: var(--panel);
 }
 .career-form-card,
 .career-media {
   min-height: 100%;
   border-radius: 0;
   border: 0;
-  background: #000;
   overflow: hidden;
 }
 .career-form-card {
   display: flex;
   flex-direction: column;
-  padding: 32px 28px;
+  padding: 40px 36px;
   box-sizing: border-box;
+  background: var(--panel);
 }
+
+/* ---------- Form ---------- */
 .career-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
   flex: 1;
 }
 .career-form label {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #aeb6c2;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 550;
+  letter-spacing: 0.01em;
+  color: var(--muted);
 }
 .career-optional {
   position: absolute;
@@ -79,26 +87,31 @@
   right: 0;
   font-size: 12px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--dim);
 }
 .career-form input[type='text'],
 .career-form input[type='email'],
 .career-form input[type='tel'],
 .career-form input[type='url'] {
   width: 100%;
-  background: #0a0c10;
-  border: 1px solid #3a404c;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 14px 16px;
   color: var(--text);
   font: inherit;
+  font-size: 15px;
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color 0.15s ease;
+}
+.career-form input::placeholder {
+  color: var(--dim);
 }
 .career-form input:focus {
-  border-color: rgba(var(--accent-rgb), 0.55);
-  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.12);
+  border-color: rgba(var(--accent-rgb), 0.6);
 }
+
+/* ---------- File upload ---------- */
 .career-file input[type='file'] {
   position: absolute;
   width: 1px;
@@ -108,36 +121,54 @@
   clip: rect(0, 0, 0, 0);
 }
 .career-file-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
   text-align: left;
-  background: #0a0c10;
-  border: 1px dashed #3a404c;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px dashed var(--border);
   border-radius: 12px;
   padding: 14px 16px;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--muted);
   font: inherit;
+  font-size: 15px;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
+  transition: border-color 0.15s ease;
 }
-.career-file-btn:hover {
-  border-color: rgba(var(--accent-rgb), 0.55);
-  color: #fff;
+.career-file-btn::before {
+  content: "↑";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.career-file-btn:focus-visible {
+  outline: none;
+  border-color: rgba(var(--accent-rgb), 0.6);
 }
 .career-submit {
   margin-top: 8px;
   align-self: flex-start;
-  height: 48px;
-  padding: 0 24px;
+  height: 50px;
+  padding: 0 28px;
   font-weight: 600;
 }
+
+/* ---------- Media ---------- */
 .career-media {
   position: relative;
   min-height: 640px;
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* Pure black matches the image's own background, so the art sits
+     seamlessly with no letterbox seam. */
   background: #000;
   overflow: hidden;
 }
@@ -147,11 +178,11 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: right center;
-  transform: scale(1.2);
-  transform-origin: right center;
 }
+
+/* ---------- Responsive ---------- */
 @media (min-width: 1024px) {
   .career-page {
     padding: 96px 0 120px;
@@ -162,11 +193,10 @@
   }
   .career-layout {
     width: min(var(--site-max), calc(100% - 64px));
-    gap: 0;
-    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.4fr);
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.3fr);
   }
   .career-form-card {
-    padding: 40px 36px;
+    padding: 48px 44px;
   }
 }
 @media (max-width: 1023px) {
@@ -175,15 +205,16 @@
   }
   .career-layout {
     grid-template-columns: 1fr;
-    gap: 0;
   }
   .career-media {
     order: -1;
-    min-height: 320px;
-    aspect-ratio: 16 / 11;
+    min-height: 280px;
+    aspect-ratio: 16 / 10;
+  }
+  .career-media img {
+    object-position: center;
   }
   .career-form-card {
-    padding: 24px 20px;
-    border-top: 0;
+    padding: 28px 22px;
   }
 }

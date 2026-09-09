@@ -9,6 +9,9 @@ const nextConfig = {
   // Pin the file-tracing root to this app so an unrelated lockfile in the
   // user's home directory doesn't get inferred as the workspace root.
   outputFileTracingRoot: __dirname,
+  // better-sqlite3 is a native addon — keep it external so Next never tries to
+  // bundle it into the server build.
+  serverExternalPackages: ['better-sqlite3'],
   images: {
     // Marketing assets are pre-optimized PNG/WEBP in /public; keep it simple.
     unoptimized: true,
